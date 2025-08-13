@@ -4,10 +4,15 @@ import "modern-normalize";
 import './index.css'
 import App from './components/App/App'
 import { Toaster } from 'react-hot-toast';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+
+const queryClient = new QueryClient()
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <Toaster position="top-center" />
+  <QueryClientProvider client={queryClient}>
     <App />
-  </StrictMode>,
+    <Toaster position="top-center" />
+    <ReactQueryDevtools initialIsOpen={false}/>
+  </QueryClientProvider>
 )

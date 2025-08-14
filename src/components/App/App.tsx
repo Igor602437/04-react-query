@@ -1,6 +1,6 @@
 import css from './App.module.css'
 import SearchBar from '../SearchBar/SearchBar';
-import type { Movie, TmdbResponse } from '../../types/movie';
+import type { Movie} from '../../types/movie';
 import { useEffect, useState } from 'react';
 import { fetchMovies } from '../../services/movieService';
 import MovieGrid from '../MovieGrid/MovieGrid';
@@ -18,7 +18,7 @@ export default function App() {
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   
-  const { data, isLoading, isError, isSuccess } = useQuery<TmdbResponse>({
+  const { data, isLoading, isError, isSuccess } = useQuery({
     queryKey: ['moviesSearch', query, page],
     queryFn: () => fetchMovies(query, page),
     enabled: query!=='',
@@ -30,14 +30,14 @@ export default function App() {
     setPage(1);
   };
   
-  const totalPages = data?.total_pages ?? 0;
-
   useEffect(() => {
   if (isSuccess && data.results.length === 0) {
     toast.error("No movies found for your request.");
     return;
     }
   }, [isSuccess, data]);
+
+  const totalPages = data?.total_pages ?? 0;
 
   const handleSelectMovie = (movie: Movie) => {
     setSelectedMovie(movie);

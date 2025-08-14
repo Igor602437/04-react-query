@@ -18,7 +18,7 @@ export default function App() {
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   
-  const { data, isLoading, isError, error, isSuccess } = useQuery<TmdbResponse>({
+  const { data, isLoading, isError, isSuccess } = useQuery<TmdbResponse>({
     queryKey: ['moviesSearch', query, page],
     queryFn: () => fetchMovies(query, page),
     enabled: query!=='',
@@ -64,7 +64,7 @@ export default function App() {
           nextLabel="→"
           previousLabel="←" />)}
       {isLoading && <Loader />}
-      {isError && <ErrorMessage errorMessage={error.message}/>}
+      {isError && <ErrorMessage/>}
       {data?.results && data?.results.length > 0 && <MovieGrid movies={data.results} onSelect={handleSelectMovie} />}
       {isModalOpen && selectedMovie && (<MovieModal movie={selectedMovie} onClose={closeModal} />)}
     </div>

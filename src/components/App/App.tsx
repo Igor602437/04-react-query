@@ -25,9 +25,9 @@ export default function App() {
     placeholderData: keepPreviousData,
   })
 
-  const handleSubmit = (newQuery: string, newPage: number = 1) => {
+  const handleSubmit = (newQuery: string) => {
     setQuery(newQuery);
-    setPage(newPage);
+    setPage(1);
   };
   
   const totalPages = data?.total_pages ?? 0;
